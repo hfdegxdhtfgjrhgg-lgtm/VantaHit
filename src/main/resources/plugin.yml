@@ -1,0 +1,6 @@
+name: VantaHit
+version: 1.0.0
+main: me.vantahit.Main
+api-version: '1.21'
+author: VantaHit
+description: Ghost Hit recovery plugin for Paper 1.21.1

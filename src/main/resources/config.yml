@@ -1,0 +1,10 @@
+# VantaHit Configuration
+
+# إصلاح الضربة إذا وصلت للسيرفر وتم إلغاؤها
+recover-cancelled-hits: true
+
+# إظهار رسالة للاعب عند استرجاع الضربة
+actionbar-message: true
+
+# الرسالة التي تظهر عند استرجاع الضربة
+recovered-message: "§a✔ Hit recovered"

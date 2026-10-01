@@ -8,11 +8,21 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public final class GhostHitListener implements Listener {
 
+    private final Main plugin;
+
+    public GhostHitListener(Main plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler(
             priority = EventPriority.HIGHEST,
             ignoreCancelled = false
     )
     public void onDamage(EntityDamageByEntityEvent event) {
+
+        if (!plugin.getConfig().getBoolean("recover-cancelled-hits", true)) {
+            return;
+        }
 
         if (!event.isCancelled()) {
             return;
@@ -22,13 +32,21 @@ public final class GhostHitListener implements Listener {
             return;
         }
 
-        if (!(event.getEntity() instanceof Player target)) {
+        if (!(event.getEntity() instanceof Player)) {
             return;
         }
 
-        // Recover the hit that reached the server but was cancelled.
+        // الضربة وصلت للسيرفر، لكن حدث الضرر تم إلغاؤه.
+        // نرجع الحدث للعمل بدون إضافة Damage ثانية.
         event.setCancelled(false);
 
-        attacker.sendActionBar("§a✔ Hit recovered");
+        if (plugin.getConfig().getBoolean("actionbar-message", true)) {
+            String message = plugin.getConfig().getString(
+                    "recovered-message",
+                    "§a✔ Hit recovered"
+            );
+
+            attacker.sendActionBar(message);
+        }
     }
 }
